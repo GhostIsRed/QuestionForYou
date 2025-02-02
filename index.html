@@ -1,0 +1,160 @@
+﻿<html>
+<body>
+    <div id="main">
+        <h1 id="question">Will you be my Valentine?</h1>
+        <!-- Container for Yes and No buttons -->
+        <div id="buttonsContainer">
+            <button id="yesButton">Yes</button>
+            <button id="noButton">No</button>
+        </div>
+        <!-- Initial GIF -->
+        <img id="loveGif" src="https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHNhdDc2emlwaW5tdTdsM3k3aWluczgzMDgzZ21kMm9wbnoyc3VkeCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/gjHkRHSuHqu99y9Yjt/giphy.gif"
+             alt="Love GIF"
+             style="width: 300px; display: block; margin: 20px auto;">
+    </div>
+
+    <style>
+        /* Soft pink background */
+        body {
+            background-color: #ffe6ea; /* Light pink */
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh; /* Make sure the content is vertically centered */
+        }
+
+        div {
+            text-align: center;
+            position: relative;
+            padding: 20px;
+        }
+
+        /* Center buttons horizontally and vertically */
+        #buttonsContainer {
+            display: flex;
+            justify-content: center; /* Center buttons horizontally */
+            gap: 20px; /* Space between buttons */
+            margin-top: 20px;
+        }
+
+        #yesButton, #noButton {
+            border: none;
+            padding: 15px 30px;
+            font-size: 20px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+            width: 150px; /* Set fixed width for buttons */
+        }
+
+        #yesButton {
+            background-color: green;
+            color: white;
+        }
+
+        #noButton {
+            background-color: red;
+            color: white;
+        }
+
+        #yesButton:hover {
+            background-color: darkgreen;
+        }
+
+        #noButton:hover {
+            background-color: darkred;
+        }
+
+        /* Mobile: Change button layout and size */
+        @media (max-width: 768px) {
+            #buttonsContainer {
+                flex-direction: column; /* Stack buttons vertically */
+                gap: 10px; /* Smaller gap */
+            }
+
+            #yesButton {
+                font-size: 25px;
+                padding: 20px 40px;
+            }
+
+            #noButton {
+                font-size: 15px;
+                padding: 10px 20px;
+            }
+        }
+    </style>
+
+    <script>
+        let yesButton = document.getElementById("yesButton");
+        let noButton = document.getElementById("noButton");
+        let questionText = document.getElementById("question");
+        let loveGif = document.getElementById("loveGif");
+
+        // List of funny/cute messages when hovering or clicking "No"
+        let noMessages = [
+            "Pleasee One Chance?",
+            "Sige na?",
+            "Malulungkot ako sige ka",
+            "Huyyy Pleaseeeee",
+            "Lilibre kita promise",
+            "LUHHH ANONG NO",
+            "Give me that chance sige na"
+        ];
+
+        // GIFs to swap
+        let gifs = {
+            initial: "https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHNhdDc2emlwaW5tdTdsM3k3aWluczgzMDgzZ21kMm9wbnoyc3VkeCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/gjHkRHSuHqu99y9Yjt/giphy.gif", // Initial GIF
+            yes: "https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExMTY4amVoY2p0NGNqeTdpa2VhZHp6ajcydGtrY2FwajdxbmUwMDJ3cCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/wPnbkEcr2tXiTN0Lmq/giphy.gif", // Yes GIF
+            no: "https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExa3ZxNHpkNHJvMXQxNGpvcjE3azRjYjFxaW9rc2VkYXFpY2F3M3FlZiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/eKfpB6WZeKC1DiGrj8/giphy.gif" // No GIF
+        };
+
+        // Detect mobile users
+        function isMobile() {
+            return /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+        }
+
+        if (isMobile()) {
+            // Mobile: Clicking "No" makes it smaller and "Yes" bigger
+            noButton.addEventListener("click", () => {
+                noButton.style.fontSize = "15px";
+                yesButton.style.fontSize = "25px";
+
+                // Change the GIF when clicked
+                loveGif.src = gifs.no;
+            });
+        } else {
+            // Desktop: No button runs away
+            noButton.addEventListener("mouseover", () => {
+                // Randomize position within a max area (1000px x 700px)
+                let i = Math.floor(Math.random() * 1500); // Random left position (max 1000px)
+                let j = Math.floor(Math.random() * 1000);  // Random top position (max 700px)
+
+                // Apply the new position to the "No" button
+                noButton.style.position = "absolute";  // Make sure it can move
+                noButton.style.left = i + "px";
+                noButton.style.top = j + "px";
+
+                // Change the question text to a random "No" message
+                questionText.innerText = noMessages[Math.floor(Math.random() * noMessages.length)];
+
+                // Change the GIF when hovered
+                loveGif.src = gifs.no;
+            });
+        }
+
+        yesButton.addEventListener("click", () => {
+            let mainDiv = document.getElementById("main");
+            mainDiv.innerHTML = `
+                    <h1>I LOVE YOUUUUU!!!! SEE YOU ON FEB 14!! <3 MWAMWA</h1>
+                    <img src="${gifs.yes}" alt="Excited GIF" style="width: 300px; display: block; margin: 20px auto;">
+                `;
+        });
+
+        // Initial GIF on page load
+        loveGif.src = gifs.initial;
+    </script>
+</body>
+</html>
